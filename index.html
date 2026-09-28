@@ -19,16 +19,6 @@
             background-color: #f3f4f6;
         }
 
-        .oswald-bold {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-        }
-
-        .oswald-regular {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 400;
-        }
-
         /* Pattern catur untuk visualisasi transparansi PNG */
         .checkerboard-bg {
             background-color: #ffffff;
@@ -45,7 +35,7 @@
 <body class="min-h-screen text-slate-800 flex flex-col justify-between">
 
     <header class="bg-slate-900 text-white py-4 px-6 shadow-md">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <i class="fa-solid font-bold text-2xl text-blue-400 fa-id-card"></i>
                 <h1 class="text-xl font-bold tracking-wide">Name Tag PNG Generator</h1>
@@ -54,14 +44,14 @@
         </div>
     </header>
 
-    <main class="max-w-6xl w-full mx-auto p-4 sm:p-6 flex-grow">
+    <main class="max-w-5xl w-full mx-auto p-4 sm:p-6 flex-grow">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             <!-- Panel Kontrol Input (Kiri) -->
             <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
                 <div class="space-y-5">
                     <h2 class="text-lg font-bold text-slate-800 border-b pb-3 flex items-center">
-                        <i class="fa-solid fa-sliders text-blue-600 mr-2"></i> Pengaturan Teks & Desain
+                        <i class="fa-solid fa-pen-to-square text-blue-600 mr-2"></i> Input Teks
                     </h2>
 
                     <!-- Input Nama -->
@@ -69,71 +59,19 @@
                         <label for="inputName" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
                             Nama Lengkap (Otomatis ALL CAPS)
                         </label>
-                        <input type="text" id="inputName" value="NAMA" 
+                        <input type="text" id="inputName" value="HANUNG HAMBARA" 
                             class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 uppercase font-semibold"
-                            placeholder="Contoh: NAMA">
+                            placeholder="Contoh: NAMA LENGKAP">
                     </div>
 
                     <!-- Input Jabatan -->
                     <div>
                         <label for="inputTitle" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
-                            Jabatan / Instansi
+                            Jabatan / Instansi (Bisa Press Enter / Multiline)
                         </label>
-                        <input type="text" id="inputTitle" value="Fotografer Koran Jawa Pos" 
-                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"
-                            placeholder="Contoh: Jabatan">
-                    </div>
-
-                    <!-- Pilihan Warna & Ukuran Font -->
-                    <div class="pt-2 border-t border-slate-100 space-y-4">
-                        <h3 class="text-sm font-semibold text-slate-700">Penyesuaian Warna & Ukuran</h3>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <!-- Warna Background Nama -->
-                            <div>
-                                <label for="bgColor" class="block text-xs text-slate-600 mb-1">Bg Nama</label>
-                                <div class="flex items-center space-x-2">
-                                    <input type="color" id="bgColor" value="#004880" class="w-9 h-9 rounded cursor-pointer border border-slate-300 p-0.5">
-                                    <span id="bgColorHex" class="text-xs font-mono text-slate-500">#004880</span>
-                                </div>
-                            </div>
-
-                            <!-- Warna Teks Nama -->
-                            <div>
-                                <label for="nameTextColor" class="block text-xs text-slate-600 mb-1">Teks Nama</label>
-                                <div class="flex items-center space-x-2">
-                                    <input type="color" id="nameTextColor" value="#ffffff" class="w-9 h-9 rounded cursor-pointer border border-slate-300 p-0.5">
-                                    <span id="nameTextColorHex" class="text-xs font-mono text-slate-500">#FFFFFF</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Ukuran Font Nama -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <label for="fontSizeName" class="text-xs text-slate-600">Ukuran Font Nama</label>
-                                <span id="fontSizeNameVal" class="text-xs font-semibold text-slate-700">72px</span>
-                            </div>
-                            <input type="range" id="fontSizeName" min="40" max="120" value="72" class="w-full accent-blue-600">
-                        </div>
-
-                        <!-- Ukuran Font Jabatan -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <label for="fontSizeTitle" class="text-xs text-slate-600">Ukuran Font Jabatan</label>
-                                <span id="fontSizeTitleVal" class="text-xs font-semibold text-slate-700">62px</span>
-                            </div>
-                            <input type="range" id="fontSizeTitle" min="30" max="100" value="62" class="w-full accent-blue-600">
-                        </div>
-
-                        <!-- Padding Atas-Bawah Nama -->
-                        <div>
-                            <div class="flex justify-between items-center mb-1">
-                                <label for="paddingY" class="text-xs text-slate-600">Padding Atas-Bawah Nama</label>
-                                <span id="paddingYVal" class="text-xs font-semibold text-slate-700">16px</span>
-                            </div>
-                            <input type="range" id="paddingY" min="5" max="40" value="16" class="w-full accent-blue-600">
-                        </div>
+                        <textarea id="inputTitle" rows="3"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 resize-y text-sm"
+                            placeholder="Contoh: Fotografer&#10;Koran Jawa Pos">Fotografer&#10;Koran Jawa Pos</textarea>
                     </div>
                 </div>
 
@@ -170,7 +108,7 @@
                 <!-- Petunjuk Penggunaan Singkat -->
                 <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-800 flex items-start space-x-2">
                     <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
-                    <span>Teks Nama otomatis diubah menjadi <strong>ALL CAPS</strong> dengan font <strong>Oswald Bold</strong>. Latar belakang bagian bawah murni transparan (PNG).</span>
+                    <span>Lebar kotak nama (biru) dan kotak jabatan (putih) bergerak secara fleksibel mengikuti panjang teks masing-masing. Teks jabatan berada di posisi tengah kotak putih dan dapat dipisah menggunakan Enter.</span>
                 </div>
             </div>
 
@@ -182,7 +120,7 @@
     </footer>
 
     <script>
-        // Memastikan Font Google Font Oswald telah ter-load sempurna sebelum merender canvas
+        // Pastikan Google Font Oswald telah siap ter-load
         document.fonts.ready.then(function() {
             initApp();
         });
@@ -191,104 +129,115 @@
             const canvas = document.getElementById('tagCanvas');
             const ctx = canvas.getContext('2d');
 
-            // Mengambil element input
             const inputName = document.getElementById('inputName');
             const inputTitle = document.getElementById('inputTitle');
-            const bgColor = document.getElementById('bgColor');
-            const nameTextColor = document.getElementById('nameTextColor');
-            const fontSizeName = document.getElementById('fontSizeName');
-            const fontSizeTitle = document.getElementById('fontSizeTitle');
-            const paddingY = document.getElementById('paddingY');
 
-            // Label nilai slider
-            const fontSizeNameVal = document.getElementById('fontSizeNameVal');
-            const fontSizeTitleVal = document.getElementById('fontSizeTitleVal');
-            const paddingYVal = document.getElementById('paddingYVal');
-            const bgColorHex = document.getElementById('bgColorHex');
-            const nameTextColorHex = document.getElementById('nameTextColorHex');
+            // Nilai Fixed untuk Warna & Ukuran Font
+            const CONFIG = {
+                bgColorName: '#004880',      // Warna Kotak Nama (Biru)
+                textColorName: '#ffffff',    // Warna Teks Nama (Putih)
+                bgColorTitle: '#ffffff',     // Warna Kotak Jabatan (Putih)
+                textColorTitle: '#1e293b',   // Warna Teks Jabatan (Gelap)
+                nameFontSize: 72,            // Ukuran Font Nama
+                titleFontSize: 52,           // Ukuran Font Jabatan
+                paddingNameX: 36,            // Padding Horizontal Kotak Nama
+                paddingNameY: 20,            // Padding Vertikal Kotak Nama
+                paddingTitleX: 30,           // Padding Horizontal Kotak Jabatan
+                paddingTitleY: 20,           // Padding Vertikal Kotak Jabatan
+                gapBetween: 8                // Jarak Antara Kotak Nama dan Kotak Jabatan
+            };
 
             function renderCanvas() {
-                // Update teks indikator slider/color
-                fontSizeNameVal.textContent = fontSizeName.value + 'px';
-                fontSizeTitleVal.textContent = fontSizeTitle.value + 'px';
-                paddingYVal.textContent = paddingY.value + 'px';
-                bgColorHex.textContent = bgColor.value.toUpperCase();
-                nameTextColorHex.textContent = nameTextColor.value.toUpperCase();
+                const nameText = inputName.value.toUpperCase().trim() || "NAMA";
+                const rawTitleText = inputTitle.value || "Jabatan";
 
-                const nameText = inputName.value.toUpperCase(); // Paksa All Caps
-                const titleText = inputTitle.value;
+                // Memisahkan teks jabatan berdasarkan Enter (\n)
+                const titleLines = rawTitleText.split('\n');
 
-                const nameFontSize = parseInt(fontSizeName.value);
-                const titleFontSize = parseInt(fontSizeTitle.value);
-                const padY = parseInt(paddingY.value);
-                const sidePadding = 24; // Padding horizontal kiri-kanan
+                // 1. HITUNG UKURAN KOTAK NAMA (BIRU)
+                ctx.font = `700 ${CONFIG.nameFontSize}px Oswald`;
+                const nameTextWidth = ctx.measureText(nameText).width;
+                const nameBoxWidth = Math.ceil(nameTextWidth + (CONFIG.paddingNameX * 2));
+                const nameBoxHeight = Math.ceil(CONFIG.nameFontSize + (CONFIG.paddingNameY * 2));
 
-                // Mengukur lebar teks menggunakan font Oswald
-                ctx.font = `700 ${nameFontSize}px Oswald`;
-                const nameWidth = ctx.measureText(nameText).width;
+                // 2. HITUNG UKURAN KOTAK JABATAN (PUTIH)
+                ctx.font = `400 ${CONFIG.titleFontSize}px Oswald`;
+                let maxTitleLineWidth = 0;
+                titleLines.forEach(line => {
+                    const lineW = ctx.measureText(line).width;
+                    if (lineW > maxTitleLineWidth) {
+                        maxTitleLineWidth = lineW;
+                    }
+                });
 
-                ctx.font = `400 ${titleFontSize}px Oswald`;
-                const titleWidth = ctx.measureText(titleText).width;
+                const titleLineHeight = Math.ceil(CONFIG.titleFontSize * 1.25);
+                const titleTextHeight = titleLines.length * titleLineHeight;
 
-                // Tentukan lebar minimum canvas berdasarkan konten teks paling panjang
-                const contentWidth = Math.max(nameWidth, titleWidth);
-                const canvasWidth = Math.max(400, Math.ceil(contentWidth + sidePadding * 2));
+                const titleBoxWidth = Math.ceil(maxTitleLineWidth + (CONFIG.paddingTitleX * 2));
+                const titleBoxHeight = Math.ceil(titleTextHeight + (CONFIG.paddingTitleY * 2));
 
-                // Hitung tinggi blok Nama & Jabatan
-                const nameBlockHeight = Math.ceil(nameFontSize + (padY * 2));
-                const titleBlockHeight = Math.ceil(titleFontSize * 1.2);
-                const canvasHeight = nameBlockHeight + titleBlockHeight + 10;
+                // 3. DIMENSI TOTAL CANVAS (Menampung kedua kotak yang rata tengah)
+                const canvasWidth = Math.max(nameBoxWidth, titleBoxWidth, 300) + 20; // + margin canvas
+                const canvasHeight = nameBoxHeight + titleBoxHeight + CONFIG.gapBetween + 20;
 
-                // Atur dimensi canvas
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
 
-                // Bersihkan canvas (Menghasilkan background transparan secara default)
+                // Bersihkan canvas (Background transparan)
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // --- 1. GAMBAR BLOK KELOMPOK NAMA (BG Biru + Teks Putih) ---
-                ctx.fillStyle = bgColor.value;
-                ctx.fillRect(0, 0, canvasWidth, nameBlockHeight);
+                const centerX = canvasWidth / 2;
 
-                // Gambar Teks Nama (Oswald Bold / UPPERCASE)
-                ctx.fillStyle = nameTextColor.value;
-                ctx.font = `700 ${nameFontSize}px Oswald`;
+                // --- A. GAMBAR KOTAK NAMA (BIRU) ---
+                const nameBoxX = centerX - (nameBoxWidth / 2);
+                const nameBoxY = 10; // Top Margin
+
+                ctx.fillStyle = CONFIG.bgColorName;
+                ctx.fillRect(nameBoxX, nameBoxY, nameBoxWidth, nameBoxHeight);
+
+                // Teks Nama (Center)
+                ctx.fillStyle = CONFIG.textColorName;
+                ctx.font = `700 ${CONFIG.nameFontSize}px Oswald`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(nameText, canvasWidth / 2, nameBlockHeight / 2);
+                ctx.fillText(nameText, centerX, nameBoxY + (nameBoxHeight / 2));
 
-                // --- 2. GAMBAR TEKS JABATAN (Oswald Regular / Hitam dengan Background Transparan) ---
-                ctx.fillStyle = '#000000';
-                ctx.font = `400 ${titleFontSize}px Oswald`;
+
+                // --- B. GAMBAR KOTAK JABATAN (PUTIH) ---
+                const titleBoxX = centerX - (titleBoxWidth / 2);
+                const titleBoxY = nameBoxY + nameBoxHeight + CONFIG.gapBetween;
+
+                ctx.fillStyle = CONFIG.bgColorTitle;
+                ctx.fillRect(titleBoxX, titleBoxY, titleBoxWidth, titleBoxHeight);
+
+                // Teks Jabatan (Center Horizontal & Vertikal)
+                ctx.fillStyle = CONFIG.textColorTitle;
+                ctx.font = `400 ${CONFIG.titleFontSize}px Oswald`;
                 ctx.textAlign = 'center';
-                ctx.textBaseline = 'top';
-                ctx.fillText(titleText, canvasWidth / 2, nameBlockHeight + 8);
+                ctx.textBaseline = 'middle';
+
+                const firstLineY = titleBoxY + CONFIG.paddingTitleY + (titleLineHeight / 2);
+                titleLines.forEach((line, index) => {
+                    const currentLineY = firstLineY + (index * titleLineHeight);
+                    ctx.fillText(line, centerX, currentLineY);
+                });
             }
 
-            // Event Listener untuk update live preview saat pengguna mengetik/mengubah opsi
-            const inputs = [inputName, inputTitle, bgColor, nameTextColor, fontSizeName, fontSizeTitle, paddingY];
-            inputs.forEach(input => {
-                input.addEventListener('input', renderCanvas);
-            });
+            // Event Listeners Input Live Update
+            inputName.addEventListener('input', renderCanvas);
+            inputTitle.addEventListener('input', renderCanvas);
 
             // Tombol Reset Ke Default
             document.getElementById('btnReset').addEventListener('click', function() {
                 inputName.value = "HANUNG HAMBARA";
-                inputTitle.value = "Fotografer Koran Jawa Pos";
-                bgColor.value = "#004880";
-                nameTextColor.value = "#ffffff";
-                fontSizeName.value = 72;
-                fontSizeTitle.value = 62;
-                paddingY.value = 16;
+                inputTitle.value = "Fotografer\nKoran Jawa Pos";
                 renderCanvas();
             });
 
-            // Tombol Unduh File PNG Transparan
+            // Tombol Unduh PNG Transparan
             document.getElementById('btnDownload').addEventListener('click', function() {
                 const dataURL = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
-                
-                // Format nama file berdasarkan input nama pengguna
                 const sanitizedName = inputName.value.trim().toLowerCase().replace(/[^a-z0-9]/g, '-') || 'nametag';
                 link.download = `${sanitizedName}-tag.png`;
                 link.href = dataURL;
@@ -297,7 +246,7 @@
                 document.body.removeChild(link);
             });
 
-            // Jalankan render awal
+            // Render Awal
             renderCanvas();
         }
     </script>
