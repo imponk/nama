@@ -108,7 +108,7 @@
                 <!-- Petunjuk Penggunaan Singkat -->
                 <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-800 flex items-start space-x-2">
                     <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
-                    <span>Lebar kotak nama (biru) dan kotak jabatan (putih) bergerak secara fleksibel mengikuti panjang teks masing-masing. Teks jabatan berada di posisi tengah kotak putih dan dapat dipisah menggunakan Enter.</span>
+                    <span>Kotak nama (biru) dan kotak jabatan (putih) mepet tanpa jarak. Posisi teks nama disesuaikan secara presisi di tengah vertikal.</span>
                 </div>
             </div>
 
@@ -144,7 +144,8 @@
                 paddingNameY: 20,            // Padding Vertikal Kotak Nama
                 paddingTitleX: 30,           // Padding Horizontal Kotak Jabatan
                 paddingTitleY: 20,           // Padding Vertikal Kotak Jabatan
-                gapBetween: 8                // Jarak Antara Kotak Nama dan Kotak Jabatan
+                gapBetween: 0,               // Mepet (Tidak ada jarak antara kotak biru dan putih)
+                nameOffsetY: 4               // Penyesuaian vertikal teks nama agar pas di tengah atas-bawah
             };
 
             function renderCanvas() {
@@ -195,17 +196,17 @@
                 ctx.fillStyle = CONFIG.bgColorName;
                 ctx.fillRect(nameBoxX, nameBoxY, nameBoxWidth, nameBoxHeight);
 
-                // Teks Nama (Center)
+                // Teks Nama (Center + Offset Vertikal)
                 ctx.fillStyle = CONFIG.textColorName;
                 ctx.font = `700 ${CONFIG.nameFontSize}px Oswald`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(nameText, centerX, nameBoxY + (nameBoxHeight / 2));
+                ctx.fillText(nameText, centerX, nameBoxY + (nameBoxHeight / 2) + CONFIG.nameOffsetY);
 
 
                 // --- B. GAMBAR KOTAK JABATAN (PUTIH) ---
                 const titleBoxX = centerX - (titleBoxWidth / 2);
-                const titleBoxY = nameBoxY + nameBoxHeight + CONFIG.gapBetween;
+                const titleBoxY = nameBoxY + nameBoxHeight + CONFIG.gapBetween; // Tepat menempel di bawah kotak biru
 
                 ctx.fillStyle = CONFIG.bgColorTitle;
                 ctx.fillRect(titleBoxX, titleBoxY, titleBoxWidth, titleBoxHeight);
