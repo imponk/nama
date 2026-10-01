@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Tag PNG Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Oswald -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        /* Pattern catur untuk visualisasi transparansi PNG */
+        .checkerboard-bg {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
+                linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #e5e7eb 75%), 
+                linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <header class="bg-slate-900 text-white py-4 px-6 shadow-md">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid font-bold text-2xl text-red-600 fa-id-card"></i>
+                <h1 class="text-xl font-bold tracking-wide">Name Tag PNG Generator</h1>
+            </div>
+            <span class="text-xs bg-red-600 text-white px-2.5 py-1 rounded-full font-medium">Versi HTML5 Canvas</span>
+        </div>
+    </header>
+
+    <main class="max-w-5xl w-full mx-auto p-4 sm:p-6 flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Panel Kontrol Input (Kiri) -->
+            <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div class="space-y-5">
+                    <h2 class="text-lg font-bold text-slate-800 border-b pb-3 flex items-center">
+                        <i class="fa-solid fa-pen-to-square text-red-600 mr-2"></i> Input Teks
+                    </h2>
+
+                    <!-- Input Nama -->
+                    <div>
+                        <label for="inputName" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
+                            Nama Lengkap (Otomatis ALL CAPS)
+                        </label>
+                        <input type="text" id="inputName" value="NAMA" 
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-800 uppercase font-semibold"
+                            placeholder="Contoh: NAMA LENGKAP">
+                    </div>
+
+                    <!-- Input Jabatan -->
+                    <div>
+                        <label for="inputTitle" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
+                            Jabatan / Instansi (Bisa Press Enter / Multiline)
+                        </label>
+                        <textarea id="inputTitle" rows="3"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-slate-800 resize-y text-sm"
+                            placeholder="Contoh: Fotografer&#10;Koran Jawa Pos">Jabatan</textarea>
+                    </div>
+                </div>
+
+                <!-- Tombol Reset & Unduh -->
+                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-2">
+                    <button id="btnDownload" class="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg shadow-red-500/30 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Unduh PNG Transparan</span>
+                    </button>
+                    <button id="btnReset" class="w-full py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-lg text-sm transition">
+                        Reset Ke Default
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel Preview Canvas (Kanan) -->
+            <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center border-b pb-3 mb-4">
+                        <h2 class="text-lg font-bold text-slate-800 flex items-center">
+                            <i class="fa-solid fa-eye text-red-600 mr-2"></i> Pratinjau Hasil
+                        </h2>
+                        <span class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                            Background Catur = Transparan
+                        </span>
+                    </div>
+
+                    <!-- Container Canvas dengan checkerboard background -->
+                    <div class="checkerboard-bg p-6 rounded-xl border border-slate-300 flex items-center justify-center overflow-x-auto min-h-[300px]">
+                        <canvas id="tagCanvas" class="max-w-full h-auto shadow-md"></canvas>
+                    </div>
+                </div>
+
+                <!-- Petunjuk Penggunaan Singkat -->
+                <div class="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg text-xs text-red-800 flex items-start space-x-2">
+                    <i class="fa-solid fa-circle-info text-red-500 mt-0.5"></i>
+                    <span>Kotak nama (merah HSBC) dan kotak jabatan (putih) mepet tanpa jarak. Posisi teks nama disesuaikan secara presisi di tengah vertikal.</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 py-4 px-6 text-center text-xs">
+        <p>&copy; Generator Name Tag Transparan - Font Oswald Bold & Regular</p>
+    </footer>
+
+    <script>
+        // Pastikan Google Font Oswald telah siap ter-load
+        document.fonts.ready.then(function() {
+            initApp();
+        });
+
+        function initApp() {
+            const canvas = document.getElementById('tagCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const inputName = document.getElementById('inputName');
+            const inputTitle = document.getElementById('inputTitle');
+
+            // Nilai Fixed untuk Warna & Ukuran Font
+            const CONFIG = {
+                bgColorName: '#DB0011',      // Warna Kotak Nama (Merah HSBC)
+                textColorName: '#ffffff',    // Warna Teks Nama (Putih)
+                bgColorTitle: '#ffffff',     // Warna Kotak Jabatan (Putih)
+                textColorTitle: '#1e293b',   // Warna Teks Jabatan (Gelap)
+                nameFontSize: 72,            // Ukuran Font Nama
+                titleFontSize: 52,           // Ukuran Font Jabatan
+                paddingNameX: 36,            // Padding Horizontal Kotak Nama
+                paddingNameY: 20,            // Padding Vertikal Kotak Nama
+                paddingTitleX: 30,           // Padding Horizontal Kotak Jabatan
+                paddingTitleY: 20,           // Padding Vertikal Kotak Jabatan
+                gapBetween: 0,               // Mepet (Tidak ada jarak antara kotak merah dan putih)
+                nameOffsetY: 4               // Penyesuaian vertikal teks nama agar pas di tengah atas-bawah
+            };
+
+            function renderCanvas() {
+                const nameText = inputName.value.toUpperCase().trim() || "NAMA";
+                const rawTitleText = inputTitle.value || "Jabatan";
+
+                // Memisahkan teks jabatan berdasarkan Enter (\n)
+                const titleLines = rawTitleText.split('\n');
+
+                // 1. HITUNG UKURAN KOTAK NAMA (MERAH HSBC)
+                ctx.font = `700 ${CONFIG.nameFontSize}px Oswald`;
+                const nameTextWidth = ctx.measureText(nameText).width;
+                const nameBoxWidth = Math.ceil(nameTextWidth + (CONFIG.paddingNameX * 2));
+                const nameBoxHeight = Math.ceil(CONFIG.nameFontSize + (CONFIG.paddingNameY * 2));
+
+                // 2. HITUNG UKURAN KOTAK JABATAN (PUTIH)
+                ctx.font = `400 ${CONFIG.titleFontSize}px Oswald`;
+                let maxTitleLineWidth = 0;
+                titleLines.forEach(line => {
+                    const lineW = ctx.measureText(line).width;
+                    if (lineW > maxTitleLineWidth) {
+                        maxTitleLineWidth = lineW;
+                    }
+                });
+
+                const titleLineHeight = Math.ceil(CONFIG.titleFontSize * 1.25);
+                const titleTextHeight = titleLines.length * titleLineHeight;
+
+                const titleBoxWidth = Math.ceil(maxTitleLineWidth + (CONFIG.paddingTitleX * 2));
+                const titleBoxHeight = Math.ceil(titleTextHeight + (CONFIG.paddingTitleY * 2));
+
+                // 3. DIMENSI TOTAL CANVAS (Menampung kedua kotak yang rata tengah)
+                const canvasWidth = Math.max(nameBoxWidth, titleBoxWidth, 300) + 20; // + margin canvas
+                const canvasHeight = nameBoxHeight + titleBoxHeight + CONFIG.gapBetween + 20;
+
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+
+                // Bersihkan canvas (Background transparan)
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const centerX = canvasWidth / 2;
+
+                // --- A. GAMBAR KOTAK NAMA (MERAH HSBC) ---
+                const nameBoxX = centerX - (nameBoxWidth / 2);
+                const nameBoxY = 10; // Top Margin
+
+                ctx.fillStyle = CONFIG.bgColorName;
+                ctx.fillRect(nameBoxX, nameBoxY, nameBoxWidth, nameBoxHeight);
+
+                // Teks Nama (Center + Offset Vertikal)
+                ctx.fillStyle = CONFIG.textColorName;
+                ctx.font = `700 ${CONFIG.nameFontSize}px Oswald`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(nameText, centerX, nameBoxY + (nameBoxHeight / 2) + CONFIG.nameOffsetY);
+
+
+                // --- B. GAMBAR KOTAK JABATAN (PUTIH) ---
+                const titleBoxX = centerX - (titleBoxWidth / 2);
+                const titleBoxY = nameBoxY + nameBoxHeight + CONFIG.gapBetween; // Tepat menempel di bawah kotak merah
+
+                ctx.fillStyle = CONFIG.bgColorTitle;
+                ctx.fillRect(titleBoxX, titleBoxY, titleBoxWidth, titleBoxHeight);
+
+                // Teks Jabatan (Center Horizontal & Vertikal)
+                ctx.fillStyle = CONFIG.textColorTitle;
+                ctx.font = `400 ${CONFIG.titleFontSize}px Oswald`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                const firstLineY = titleBoxY + CONFIG.paddingTitleY + (titleLineHeight / 2);
+                titleLines.forEach((line, index) => {
+                    const currentLineY = firstLineY + (index * titleLineHeight);
+                    ctx.fillText(line, centerX, currentLineY);
+                });
+            }
+
+            // Event Listeners Input Live Update
+            inputName.addEventListener('input', renderCanvas);
+            inputTitle.addEventListener('input', renderCanvas);
+
+            // Tombol Reset Ke Default
+            document.getElementById('btnReset').addEventListener('click', function() {
+                inputName.value = "HANUNG HAMBARA";
+                inputTitle.value = "Fotografer\nKoran Jawa Pos";
+                renderCanvas();
+            });
+
+            // Tombol Unduh PNG Transparan
+            document.getElementById('btnDownload').addEventListener('click', function() {
+                const dataURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                const sanitizedName = inputName.value.trim().toLowerCase().replace(/[^a-z0-9]/g, '-') || 'nametag';
+                link.download = `${sanitizedName}-tag.png`;
+                link.href = dataURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Render Awal
+            renderCanvas();
+        }
+    </script>
+</body>
+</html>
